@@ -15,7 +15,7 @@ refs.inputEl.addEventListener('input', debounce(hendleSearchInput, DEBOUNCE_DELA
 
 function hendleSearchInput(e) {
     const countryName = e.target.value.trim();
-    
+
     if (countryName === '') {
         refs.countryListEl.innerHTML = '';
         return;
@@ -36,6 +36,7 @@ function createsPageMarkup(country) {
                 refs.countryInfoEl.innerHTML = '';
                 return;
             }
+            refs.countryListEl.innerHTML = '';
             Notiflix.Notify.info("Too many matches found. Please enter a more specific name.");
 }
         
