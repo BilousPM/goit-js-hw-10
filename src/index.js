@@ -18,6 +18,7 @@ function hendleSearchInput(e) {
 
     if (countryName === '') {
         refs.countryListEl.innerHTML = '';
+        refs.countryInfoEl.innerHTML = '';
         return;
     }
     fetchCountries(countryName).then(createsPageMarkup).catch(errorMessage);
@@ -27,21 +28,24 @@ function createsPageMarkup(country) {
     const markList = markUpCountryList(country);
     const markInfo = markUpCountryInfo(country);
 
-            if (country.length === 1) {
-                refs.countryListEl.innerHTML = markList
-                refs.countryInfoEl.innerHTML = markInfo
-                return;
-            } else if (country.length > 1 && country.length <= 10) {
-                refs.countryListEl.innerHTML = markList;
-                refs.countryInfoEl.innerHTML = '';
-                return;
-            }
-            refs.countryListEl.innerHTML = '';
-            Notiflix.Notify.info("Too many matches found. Please enter a more specific name.");
+        if (country.length === 1) {
+            refs.countryListEl.innerHTML = markList
+            refs.countryInfoEl.innerHTML = markInfo
+            return;
+        } else if (country.length > 1 && country.length <= 10) {
+            refs.countryListEl.innerHTML = markList;
+            refs.countryInfoEl.innerHTML = '';
+            return;
+        }
+        refs.countryInfoEl.innerHTML = '';
+        refs.countryListEl.innerHTML = '';
+        Notiflix.Notify.info("Too many matches found. Please enter a more specific name.");
 }
         
 function errorMessage(error) {
-     Notiflix.Notify.failure("Oops, there is no country with that name")
+    refs.countryListEl.innerHTML = '';
+     refs.countryInfoEl.innerHTML = '';
+    Notiflix.Notify.failure("Oops, there is no country with that name")
 }
 
 function markUpCountryList(array) {
